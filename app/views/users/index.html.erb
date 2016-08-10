@@ -1,0 +1,13 @@
+<table class="table table-boldered">
+  <% @users.each do |user| %>
+  <tr>
+    <td>
+      <%= render_user_status(user) %>
+      <%= link_to(user.email, admin_user_path(user)) %>
+    </td>
+    <td>
+      <%= user.last_sign_in_at %>
+    </td>
+  </tr>
+  <% end %>
+</table>

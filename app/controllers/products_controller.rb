@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
      @product = Product.new(product_params)
 
    if @product.save
-     redirect_to products_path
+      redirect_to products_path
    else
      render :new
    end
@@ -44,11 +44,16 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  def add_to_cart
+    @product = Product.find(params[:id])
+    current_car.add_product_to_cart(@product)
+    redirect_to :back
+  end
 
  private
 
  def product_params
-   params.require(:product).permit(:title, :description)
+   params.require(:product).permit(:title, :price, :description, :image, :contact_email)
  end
 
 end

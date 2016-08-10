@@ -1,22 +1,33 @@
-<div class="pull-right">
-  <%= link_to("Add a product", new_admin_product_path, :class => "btn btn-default" ) %>
+
+<div class="group">
+  <%= link_to("Add a product", new_admin_product_path, :class => "btn btn-default pull-right") %>
 </div>
+<table claee="table">
+  <thead>
+    <th>商品名称</th>
+    <th>商品描述</th>
+    <th>商品价格</th>
+    <th>商品库存</th>
+    <th>商品价格</th>
+    <th>#</th>
 
-<br><br>
+  </thead>
 
-<table class="table table-boldered">
+  <tbody>
   <% @products.each do |product| %>
   <tr>
     <td>
       <%= link_to(product.title, admin_product_path(product)) %>
     </td>
+    <td></td>
+    <td><%= product.price%></td>
     <td>
       <%= link_to("Edit", edit_admin_product_path(product)) %> |
       <%= link_to("Destroy", admin_product_path(product), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
     </td>
     <td>
-      <%= job.created_at %>
+      <%= product.created_at %>
     </td>
   </tr>
   <% end %>
-</table>
+</tbody>

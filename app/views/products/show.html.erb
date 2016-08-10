@@ -1,6 +1,7 @@
-<h1> <%= @product.title %> </h1>
+<h2> <%= @product.title %> </h2>
 
 <p>
+  <%= image_tag(@product.image.thumb) %>
   <%= simple_format(@product.description) %>
-
+  <%= link_to("加入购物车",add_to_cart_product_path(@product), :methed => :post, :class => "btn btn-primary btn-lg btn-danger") %>
 </p>
