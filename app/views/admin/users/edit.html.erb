@@ -1,8 +1,6 @@
 <h1> Edit a user </h1>
-  <%= f.input :is_hidden %>
+  <%= f.input :is_admin %>
 <%= simple_form_for [:admin, @users ] do |f| %>
-
   <%= f.input :email %>
-
   <%= f.submit "Submit" %>
 <% end %>
