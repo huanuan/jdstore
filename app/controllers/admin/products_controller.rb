@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :update, :edit, :destroy]
-
+  layout "application"
   def show
     @product = Product.find(params[:id])
   end
@@ -55,6 +55,6 @@ class Admin::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:title, :description, :image, :price)
+    params.require(:product).permit(:title, :description, :image, :quantity, :price)
   end
 end

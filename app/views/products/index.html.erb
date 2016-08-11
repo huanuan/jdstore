@@ -1,17 +1,18 @@
+<div class= "row">
 
-<div class="row">
   <% @products.each do |product| %>
-  <div class="col-sm-3 col-md-3">
+
+   <div class="col-sm-3 col-md-3">
       <div class="thumbnail">
         <%= image_tag(product.image.thumb) %>
         <div class="caption">
-
+          <tr>
           <h4><%= product.title%></h4>
-          <p> $: <%= product.price%></p>
+          <p> 售价: <%= product.price%></p>
           <p> 库存: <%= product.quantity%></p>
+
           <!-- <p><a href="products/show" class="btn btn-primary" role="button">商品详情</a></p> -->
           <%= link_to("商品详情", product_path(product), class: "btn btn-primary" )%>
-
         </div>
       </div>
     </div>
