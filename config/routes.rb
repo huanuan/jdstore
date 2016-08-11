@@ -33,8 +33,8 @@ Rails.application.routes.draw do
      post :add_item
      post :des_item
    end
-
-
  end
+
+ resources :orders
 
 end
