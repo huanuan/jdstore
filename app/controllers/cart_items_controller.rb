@@ -21,4 +21,15 @@ class CartItemsController < ApplicationController
     redirect_to :back
   end
 
+  def clear
+    @cart = current_cart
+
+    @cart.cart_items.destroy_all
+    # @cart.cart_items.each do |cart_item|
+    #  cart_item.destroy
+    #end
+
+     redirect_to :back
+  end
+
 end

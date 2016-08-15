@@ -3,6 +3,10 @@
 
     <h3> 购物车 </h3>
 
+    <div class="checkout clearfix">
+      <%= link_to("清空购物车", clear_cart_item_path(current_cart), method: :post, class: "btn btn-sm btn-danger pull-right") %>
+    </div>
+    <br/>
     <table class="table table-bordered" >
       <thead>
         <tr>
@@ -49,6 +53,7 @@
    <br>
 
    <div class="total clearfix">
+
     <span class="pull-right">
 
       <span>
