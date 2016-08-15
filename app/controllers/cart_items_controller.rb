@@ -21,6 +21,29 @@ class CartItemsController < ApplicationController
     redirect_to :back
   end
 
+  def change_quantity
+    @cart_item = CartItem.find(params[:id])
+    add0rRM = params[:add0rRM]
+      if add0rRM == "+"
+        quantity = @cart_item.product.quantity
+        if quantity > @cart_item.quantity + 1
+          @cart_item.quantity = @cart_item.quantity+1
+          @cart_item.save
+        else
+          flash[:alert] = "商品库存不足!"
+        end
+      else
+        if @cart_item.quantity > 1
+          @cart_item.quantity = @cart_item.quantity - 1
+          @cart_item.save
+        end
+      end
+
+       redirect_to :back
+     end
+
+
+
   def clear
     @cart = current_cart
 

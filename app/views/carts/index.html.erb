@@ -37,12 +37,12 @@
             <%= cart_item.product.price %>
           </td>
           <td>
-            <%=link_to("-1",des_item_cart_item_path(cart_item),method: :post, class: "btn btn-info")%>
+            <%=link_to("-1",change_quantity_cart_item_path(cart_item,add0rRM: "-"),method: :post, class: "btn btn-info")%>
             <%= cart_item.quantity %>
-            <%=link_to("+1",add_item_cart_item_path(cart_item),method: :post, class: "btn btn-info  ")%>
+            <%=link_to("+1",change_quantity_cart_item_path(cart_item,add0rRM: "+"),method: :post, class: "btn btn-info  ")%>
           </td>
           <td>
-            <%= link_to("删除",cart_item_path(cart_item),method: :delete, class: "btn btn-info")%>
+            <%= link_to("删除",cart_item_path(cart_item),method: :delete, class: "btn btn-info",method: :delete, data:{confirm: "Are you sure?" } ) %>
           </td>
         </tr>
        <% end %>
