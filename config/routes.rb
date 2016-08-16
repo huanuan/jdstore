@@ -4,12 +4,29 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :products
-      resources :orders
+      resources :orders do
+        member do
+          post :cancell_order
+          post :return_good
+          post :shop
+          post :deliver
+        end
+      end
+
       resources :users do
         member do
-
-          post :be_admin
+          post :admin
           post :user
+        end
+      end
+    end
+
+
+    namespace :account do
+      resources :orders do
+        member do
+          post :appl_cancell_order
+          post :appl_return_good
         end
       end
     end
