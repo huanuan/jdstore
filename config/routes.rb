@@ -62,7 +62,8 @@ Rails.application.routes.draw do
 
   resources :orders do
     member do
-      post :go_pay
+      post :pay_with_wechat
+      post :pay_with_alipay
     end
   end
 
