@@ -53,8 +53,16 @@ class ProductsController < ApplicationController
         flash[:alert] = "此商品已在购物车!"
       else
       current_cart.add_product_to_cart(@product)
-      flash[:notice] = "加入购物车成功！"
+      flash[:notice] = "成功加入购物车！"
       end
+      # @cart_item = CartItem.find_by(product_id: @product.id,cart_id: current_cart.id)
+      #
+      # if @cart_item
+      #   flash[:alert] = "不能重复加入购物车哦"
+      # else
+      #   current_cart.add_product_to_cart(@product)
+      #   flash[:notice] =  "加入购物车成功"
+      # end
     else
       flash[:alert] = "商品缺货!"
     end

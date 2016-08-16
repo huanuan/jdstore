@@ -2,46 +2,46 @@ Rails.application.routes.draw do
   devise_for :users
   root 'products#index'
 
-  namespace :admin do
-    resources :products
-  end
+    namespace :admin do
+      resources :products
+      resources :orders
+      resources :users do
+        member do
 
-  namespace :admin do
-    resources :users do
-      member do
-        post :admin
-        post :user
+          post :admin
+          post :user
+        end
       end
     end
-  end
 
-  resources :products do
-    member do
-      post :add_to_cart
+    resources :products do
+      member do
+        post :add_to_cart
+      end
     end
-  end
 
-  resources :carts do
-    collection do
-      post :checkout
+    resources :carts do
+      collection do
+        post :checkout
+      end
     end
-  end
 
-  resources :carts do
-    member do
-      post :clear_cart
+    resources :carts do
+      member do
+        post :clear_cart
+      end
     end
-  end
 
- resources :cart_items do
-   member do
-     post :change_quantity
-     post :clear
-     post :add_item
-     post :des_item
+   resources :cart_items do
+     member do
+       post :change_quantity
+       post :clear
+       post :add_item
+       post :des_item
+     end
    end
- end
+  resources :orders
 
- resources :orders
+
 
 end
