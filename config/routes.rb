@@ -8,11 +8,12 @@ Rails.application.routes.draw do
       resources :users do
         member do
 
-          post :admin
+          post :be_admin
           post :user
         end
       end
     end
+
 
     resources :products do
       member do
@@ -40,8 +41,16 @@ Rails.application.routes.draw do
        post :des_item
      end
    end
-  resources :orders
 
 
+  resources :orders do
+    member do
+      post :go_pay
+    end
+  end
+
+  namespace :account do
+    resources :orders
+  end
 
 end

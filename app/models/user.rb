@@ -3,7 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+         
+  has_many :orders
 
   def admin?
     is_admin
@@ -18,5 +19,6 @@ class User < ApplicationRecord
     self.is_admin = false
     self.save
   end
+
 
 end
