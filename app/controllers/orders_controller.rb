@@ -30,8 +30,6 @@ class OrdersController < ApplicationController
         product_list.save
       end
 
-
-
       redirect_to order_path(@order.token)
     else
       render 'carts/checkout'
@@ -52,6 +50,7 @@ class OrdersController < ApplicationController
     @order.is_paid = true
 
     if @order.save
+      @order.make_payment!
       flash[:notice] = "支付成功"
       redirect_to account_orders_path
     else
@@ -84,10 +83,9 @@ class OrdersController < ApplicationController
 
   end
 
-
   private
 
   def order_params
-    params.require(:order).permit(:billing_name, :billing_address, :shopping_name, :shopping_address, :create)
+    params.require(:order).permit(:billing_name, :billing_address, :shipping_name, :shipping_address, :create)
   end
 end

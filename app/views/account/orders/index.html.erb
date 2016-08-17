@@ -57,12 +57,13 @@
             </td>
           </tr>
           <tr>
+          </tr class="tr-td">
             <td colspan="4">
               <% order.product_lists.each do |p_list| %>
                 <div style="float:left;margin-top:20px;">
                 <%= p_list.product_name %> x <%= p_list.quantity %>
                 ¥<%= p_list.product_price %>
-                <%= order.shopping_name %>
+                <%= order.shipping_name %>
               </div>
               <% end %>
             </td>
@@ -71,12 +72,14 @@
             </td>
 
             <td>
-              <%= order.pay_status %>
+              <!--<!%= order.pay_status %> -->
+              <%= order.order_status %><%= render_order_operate(order) %>
             </td>
 
             <td>
-              <%= link_to("订单详情",admin_order_path(order)) %>
-             </td>
+              <%= link_to("订单详情", admin_order_path(order)) %>/
+              <%= link_to("取消订单", appl_cancell_order_account_order_path(order), method: :post ) %>
+            </td>
            </tr>
          </tbody>
         <% end %>

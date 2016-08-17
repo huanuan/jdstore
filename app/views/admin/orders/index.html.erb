@@ -7,11 +7,12 @@
        <tr>
          <th>订单id</th>
          <th>订购人</th>
-         <th>订购地址</th>
          <th>收货人</th>
          <th>收货地址</th>
          <th>最后更新时间</th>
-         <!-- <th>操作</th> -->
+         <th>订单状态</th>
+         <th>操作</th>
+         <th>#</th>
        </tr>
        <tbody>
          <% @orders.each do |order| %>
@@ -23,23 +24,27 @@
                <%= order.billing_name %>
              </td>
              <td>
-               <%= order.billing_address %>
+               <%= order.shipping_name %>
              </td>
              <td>
-               <%= order.shopping_name %>
-             </td>
-             <td>
-               <%= order.shopping_address %>
+               <%= order.shipping_address %>
              </td>
              <td>
                <%= order.updated_at %>
              </td>
-             <!-- <td>
-                 <!%= link_to("Edit", edit_admin_product_path(product), class: "btn btn-sm btn-default")%>
-                 <!%= link_to("Delete", admin_product_path(product),    class: "btn btn-sm btn-default",
-                             method: :delete, data: { confirm: "Are you sure?" } )%> -->
-
+             <td>
+                <%= order.pay_status %>/<%= order.order_status %>
              </td>
+
+             <td>
+               <%= link_to("出货", ship_admin_order_path(order), method: :post ) %>/
+               <%= link_to("退货", return_good_admin_order_path(order), method: :post ) %>/
+               <%= link_to("退款", cancell_order_admin_order_path(order), method: :post ) %>
+             </td>
+             <td>
+               <%= link_to("删除",admin_order_path(order) , method: :delete ) %>
+             </td>
+
            </tr>
          <% end %>
        </tbody>
