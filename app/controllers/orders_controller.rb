@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
     @product_lists = @order.product_lists
   end
 
-
   def create
     @order = Order.new(order_params)
     @order.user = current_user
@@ -28,8 +27,16 @@ class OrdersController < ApplicationController
         product_list.product_price = cart_item.product.price
         product_list.quantity = cart_item.quantity
         product_list.save
+
+        @product = Product.find(cart_item.product.id)
+
+        @product.quantity = @product.quantity - cart_item.quantity
+
+        @product.save
       end
 
+
+      current_cart.cart_items.destroy_all
       redirect_to order_path(@order.token)
     else
       render 'carts/checkout'
@@ -45,17 +52,19 @@ class OrdersController < ApplicationController
       redirect_to :back
       return
     end
-
+    OrderMailer.notify_order_placed(@order).deliver!
     @order.payment_method = payment_method
     @order.is_paid = true
 
-    if @order.save
+
+    if #@order.save
       @order.make_payment!
+
       flash[:notice] = "支付成功"
       redirect_to account_orders_path
     else
-      flash[:notice] = "支付失败"
-      redirect_to :back
+       flash[:notice] = "支付失败"
+       redirect_to :back
     end
 
   end
@@ -70,10 +79,14 @@ class OrdersController < ApplicationController
       return
     end
 
+    OrderMailer.notify_order_placed(@order).deliver!
     @order.payment_method = payment_method
     @order.is_paid = true
 
-    if @order.save
+
+    if #@order.save
+      @order.make_payment!
+      current_cart.cart_items.destroy_all
       flash[:notice] = "支付成功"
       redirect_to account_orders_path
     else

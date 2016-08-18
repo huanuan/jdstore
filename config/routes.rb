@@ -10,6 +10,7 @@ Rails.application.routes.draw do
           post :return_good
           post :ship
           post :deliver
+          post :refund
         end
       end
 
@@ -27,6 +28,8 @@ Rails.application.routes.draw do
         member do
           post :appl_cancell_order
           post :appl_return_good
+          post :pay_with_wechat
+          post :pay_with_alipay
         end
       end
     end

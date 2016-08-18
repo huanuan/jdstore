@@ -31,12 +31,20 @@ class Account::OrdersController < ApplicationController
   end
 
 
-    def appl_return_good
-      @order = Order.find(params[:id])
-      @order.appl_good_returned!
+  def appl_return_good
+    @order = Order.find(params[:id])
+    @order.appl_good_returned!
 
-      flash[:notice] = "退货申请中"
-      redirect_to account_orders_path
-    end
+    flash[:notice] = "退货申请中"
+    redirect_to account_orders_path
+  end
+
+  def refund
+    @order = Order.find(params[:id])
+    @order.refund!
+
+    flash[:notice] = "退款成功!"
+    redirect_to admin_orders_path
+  end
 
 end

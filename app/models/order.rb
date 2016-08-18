@@ -15,15 +15,14 @@ class Order < ApplicationRecord
     self.token = SecureRandom.uuid
   end
 
-
   def order_status
-    if self.aasm_state == "order_placed"
+
+    if  self.aasm_state == "order_placed"
       "未支付"
     elsif self.aasm_state == "paid"
       "已支付"
     elsif self.aasm_state == "shipping"
       "出货中"
-
     elsif self.aasm_state == "shipped"
       "已到货"
     elsif self.aasm_state == "order_cancell_appled"
@@ -34,8 +33,10 @@ class Order < ApplicationRecord
       "退货申请"
     elsif self.aasm_state == "good_returned"
       "已退货"
+    elsif self.aasm_state == "refund"
+      "已退款"
     else
-      "未支付"
+      "待评价"
     end
   end
 
@@ -46,6 +47,7 @@ class Order < ApplicationRecord
       else
         "未支付"
       end
+
     end
 
   include AASM
@@ -54,43 +56,53 @@ class Order < ApplicationRecord
     state :order_placed, initial: true
     state :paid
     state :shipping
-    state :shiped
+    state :shipped
     state :order_cancelled
     state :good_returned
     state :order_cancell_appled
+    state :good_returned_appled
+    state :refund
 
-
-
-    #已支付
+    # 已支付
     event :make_payment do
       transitions from: :order_placed, to: :paid
     end
 
-    #出货
+    # 出货
     event :ship do
       transitions from: :paid,         to: :shipping
     end
 
-    #到货
+    # 到货
     event :deliver do
       transitions from: :shipping,      to: :shipped
     end
 
-      #未取消订单
+    # 申请退货
+    event :appl_good_returned do
+      transitions from: :shipped,       to: :good_returned_appled
+    end
+
+
+    # 退货
+    event :return_good do
+      transitions from: :good_returned_appled,       to: :good_returned
+    end
+
+    # 申请取消订单
     event :appl_cancell_order do
       transitions from: [:order_placed, :paid], to: :order_cancelled
     end
 
-    #申请退货
-    event :return_good do
-      transitions from: :shipped,       to: :good_returned
-    end
 
-    #退货
+    # 取消订单
     event :cancell_order do
-      transitions from: [:order_placed, :paid], to: :order_cancell_appled
+      transitions from: :order_cancell_appled, to: :order_cancelled
     end
 
+    event :refund do
+      transitions from: [:reder_cancell_appled, :good_returned], to: :refund
+    end
 
   end
 
